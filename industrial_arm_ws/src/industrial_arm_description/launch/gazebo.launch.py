@@ -38,6 +38,14 @@ def generate_launch_description():
         output='screen'
     )
 
+    # BRIDGE GAZEBO CLOCK TO ROS 2 /clock TOPIC
+    clock_bridge = Node(
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        arguments=['/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock'],
+        output='screen'
+    )
+    
     joint_state_broadcaster_spawner = Node(
         package="controller_manager",
         executable="spawner",
