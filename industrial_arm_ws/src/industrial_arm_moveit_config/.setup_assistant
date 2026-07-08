@@ -1,0 +1,25 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: industrial_arm_description
+    relative_path: urdf/arm.urdf.xacro
+  srdf:
+    relative_path: config/industrial_arm.srdf
+  package_settings:
+    author_name: Xiaohang Liu
+    author_email: xiaohangliu2023@gmail.com
+    generated_timestamp: 1783468983
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
