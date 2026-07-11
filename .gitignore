@@ -6,6 +6,8 @@
 # VS Code
 .vscode/
 **/.vscode/
+**/browse.vc.db
+**/browse.vc.db-*
 
 # VS Code C/C++ database
 **/browse.vc.db
