@@ -1,0 +1,5 @@
+<launch>
+    <node pkg="my_py_pkg" exec="led_panel" />
+    <node pkg="my_py_pkg" exec="battery" />
+    
+</launch>
