@@ -1,0 +1,13 @@
+<launch>
+    <node pkg="my_py_pkg" exec="led_panel" name="my_led_panel">
+        <remap from="led_panel_state" to="new_topic_name_led" />
+    </node>
+
+    <node pkg="my_py_pkg" exec="battery" name="my_battery" /> 
+    <node pkg="my_py_pkg" exec="robot_news_station" >
+        <remap from="robot_news" to="robot2_news" />
+        <param name="robot_name" value="2_robot" />
+    </node>
+    
+    
+</launch>

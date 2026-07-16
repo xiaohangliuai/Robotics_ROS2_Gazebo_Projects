@@ -1,0 +1,19 @@
+/robot_Xiaohang:
+  ros__parameters:
+    robot_name: "Xiaohang"
+
+/robot_X2:
+  ros__parameters:
+    robot_name: "robot_X2"
+
+/robot_X3:
+  ros__parameters:
+    robot_name: "robot_X3"
+
+/robot_X4:
+  ros__parameters:
+    robot_name: "robot_X4"
+
+/robot_X5:
+  ros__parameters:
+    robot_name: "robot_X5"
