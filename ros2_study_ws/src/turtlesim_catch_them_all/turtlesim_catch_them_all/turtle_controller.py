@@ -12,7 +12,7 @@ class TurtleControllerNode(Node):
     def __init__(self):
         super().__init__("turtle_controller")
         self.cur_pose_: Pose = None
-        self.turtle_to_catch_:Turtle = None
+        self.turtle_to_catch_: Turtle = None
         self.turtle_cmdVel_publisher_ = self.create_publisher(
             Twist, "/turtle1/cmd_vel", 10)
         self.create_subscription(
@@ -25,9 +25,10 @@ class TurtleControllerNode(Node):
     def callback_turtle_pose(self, pose: Pose):
         self.cur_pose_ = pose
 
-    def callback_alive_turtles(self, msg:TurtleArray):
+    def callback_alive_turtles(self, msg: TurtleArray):
         if len(msg.turtles) > 0:
             self.turtle_to_catch_ = msg.turtles[0]
+            
 
     # calculate the distance and orientation and then pushlish cmd_vel topic
     def control_loop(self):    

@@ -7,6 +7,7 @@ from rclpy.node import Node
 from turtlesim.srv import Spawn
 from functools import partial
 from my_robot_interfaces.msg import Turtle, TurtleArray
+from my_robot_interfaces.srv import CatchTurtle
 
 class TurtleSpawnerNode(Node):
     
