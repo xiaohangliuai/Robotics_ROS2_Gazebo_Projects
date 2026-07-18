@@ -14,12 +14,17 @@ class TurtleSpawnerNode(Node):
         super().__init__("turtle_spawner")
         self.turtle_name_ = "turtle_V"
         self.counter_ = 0
+        self.alive_turtles_ = []
         # self.queue = deque()
         self.turtle_client_ = self.create_client(Spawn, "spawn")
         self.create_timer(5.0, self.spawn_new_turtle)
-        self.turtle_publisher_ = self.create_publisher(Turtle, "Turtle")
+        self.alive_turtle_publisher_ = self.create_publisher(TurtleArray, "alive_turtles", 10)
         
-    
+    def publish_alive_turtles(self):
+        msg = TurtleArray()
+        msg.turtles = self.alive_turtles_
+        self.alive_turtle_publisher_.publish(msg)
+
     def spawn_new_turtle(self):
         self.counter_ += 1
         x = random.uniform(0.0, 11.0)
@@ -45,11 +50,20 @@ class TurtleSpawnerNode(Node):
         future.add_done_callback(
             partial(self.callback_spawner_response, request=request))
 
-    def callback_spawner_response(self, future, request):
+    def callback_spawner_response(self, future, request: Spawn.Request):
 
         try:
             response: Spawn.Response = future.result()
-            self.get_logger().info(f"{response.name}")
+            self.get_logger().info(f"New alive turtles: {response.name}")
+            
+            new_turtle = Turtle()
+            new_turtle.name = request.name
+            new_turtle.x = request.x
+            new_turtle.y = request.y
+            new_turtle.theta = request.theta
+            self.alive_turtles_.append(new_turtle)
+            self.publish_alive_turtles()
+
         except Exception as e:
             self.get_logger().error(f"Service call failed: {e}")
 
