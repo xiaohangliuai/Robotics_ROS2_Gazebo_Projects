@@ -4,14 +4,15 @@ import rclpy
 from rclpy.node import Node
 from turtlesim.msg import Pose
 from geometry_msgs.msg import Twist
+from turtle_controller import TurtleControllerNode
 
 # Given a coordinate point(x, y) then control turtle move to the destination
 class TurtleControllerNode(Node):
     
     def __init__(self):
         super().__init__("turtle_controller")
-        self.target_x_ = 9.0
-        self.target_y_ = 9.0
+        self.target_x_ = 1.0
+        self.target_y_ = 1.0
         self.cur_pose_: Pose = None
         self.turtle_cmdVel_publisher_ = self.create_publisher(
             Twist, "/turtle1/cmd_vel", 10)
@@ -48,8 +49,8 @@ class TurtleControllerNode(Node):
             x_angular.angular.z = diff
         else:
             # target reached 
-            x_angular.linear.x = 0
-            x_angular.angular.z = 0    
+            x_angular.linear.x = 0.0
+            x_angular.angular.z = 0.0    
         
         self.turtle_cmdVel_publisher_.publish(x_angular)
 
