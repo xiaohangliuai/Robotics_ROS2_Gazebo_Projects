@@ -10,6 +10,7 @@
   <depend>rclpy</depend>
   <depend>turtlesim</depend>
   <depend>geometry_msgs</depend>
+  <depend>my_robot_interfaces</depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
