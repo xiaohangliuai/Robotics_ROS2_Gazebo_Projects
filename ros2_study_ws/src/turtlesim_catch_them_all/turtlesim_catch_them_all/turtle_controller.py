@@ -13,9 +13,12 @@ class TurtleControllerNode(Node):
     
     def __init__(self):
         super().__init__("turtle_controller")
+        self.declare_parameter("catch_closest_turtle_first", True)
+
         self.cur_pose_: Pose = None
         self.turtle_to_catch_: Turtle = None
-        self.catch_closest_turtle_first_ = True
+        self.catch_closest_turtle_first_ = self.get_parameter(
+            "catch_closest_turtle_first").value
         self.turtle_cmdVel_publisher_ = self.create_publisher(
             Twist, "/turtle1/cmd_vel", 10)
         self.create_subscription(

@@ -13,13 +13,16 @@ class TurtleSpawnerNode(Node):
     
     def __init__(self):
         super().__init__("turtle_spawner")
-        self.turtle_name_ = "turtle_V"
+        self.declare_parameter("turtle_name_prefix", "turtle_V")
+        self.declare_parameter("spawn_frequency", 1.0)
+        self.turtle_name_prefix_ = self.get_parameter("turtle_name_prefix").value
+        self.spawn_frequency_ = self.get_parameter("spawn_frequency").value
         self.counter_ = 0
         self.alive_turtles_ = []
         # self.queue = deque()
         self.turtle_client_ = self.create_client(Spawn, "spawn")
         self.kill_client_ = self.create_client(Kill, "kill")
-        self.create_timer(0.8, self.spawn_new_turtle)
+        self.create_timer(self.spawn_frequency_, self.spawn_new_turtle)
         self.alive_turtle_publisher_ = self.create_publisher(
             TurtleArray, "alive_turtles", 10)
         self.catch_turtle_service_ = self.create_service(
@@ -41,7 +44,7 @@ class TurtleSpawnerNode(Node):
         x = random.uniform(0.0, 11.0)
         y = random.uniform(0.0, 11.0)
         theta = random.uniform(0.0, 2*math.pi)
-        name = self.turtle_name_ + str(self.counter_)
+        name = self.turtle_name_prefix_ + str(self.counter_)
 
         self.call_spawn_service(x, y, theta, name)
 
