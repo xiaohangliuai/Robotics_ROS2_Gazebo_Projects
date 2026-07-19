@@ -19,8 +19,9 @@ class TurtleSpawnerNode(Node):
         # self.queue = deque()
         self.turtle_client_ = self.create_client(Spawn, "spawn")
         self.kill_client_ = self.create_client(Kill, "kill")
-        self.create_timer(5.0, self.spawn_new_turtle)
-        self.alive_turtle_publisher_ = self.create_publisher(TurtleArray, "alive_turtles", 10)
+        self.create_timer(0.8, self.spawn_new_turtle)
+        self.alive_turtle_publisher_ = self.create_publisher(
+            TurtleArray, "alive_turtles", 10)
         self.catch_turtle_service_ = self.create_service(
             CatchTurtle, "catch_turtle", self.callback_catch_turtle)
 
