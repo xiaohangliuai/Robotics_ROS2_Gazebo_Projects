@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
-<robot name="autonomous_robot">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="autonomous_robot" >
+
+  <xacro:property name="wheel_radius" value="0.08" />
+  <xacro:property name="wheel_length" value="0.05" />
 
   <!-- ================= BASE ================= -->
   <link name="base_link">
@@ -34,8 +37,10 @@
   <!-- ================= LEFT WHEEL ================= -->
   <link name="left_wheel">
     <visual>
+      <origin xyz="0 0 -0.025" rpy="0 0 0" />
       <geometry>
-        <cylinder radius="0.08" length="0.05"/>
+        <cylinder radius="${wheel_radius}" length="${wheel_length}"/>
+
       </geometry>
     </visual>
   </link>
@@ -50,8 +55,9 @@
   <!-- ================= RIGHT WHEEL ================= -->
   <link name="right_wheel">
     <visual>
+      <origin xyz="0 0 0.025" rpy="0 0 0" />
       <geometry>
-        <cylinder radius="0.08" length="0.05"/>
+        <cylinder radius="${wheel_radius}" length="${wheel_length}"/>
       </geometry>
     </visual>
   </link>

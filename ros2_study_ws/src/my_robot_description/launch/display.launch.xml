@@ -1,6 +1,9 @@
 <launch>
     <let name="urdf_path" 
-    value="$(find-pkg-share my_robot_description)/urdf/my_robot.urdf" />
+    value="$(find-pkg-share my_robot_description)/urdf/my_robot_urdf.xacro" />
+
+    <let name="urdf_config_path" 
+    value="$(find-pkg-share my_robot_description)/rviz/urdf_config.rviz" />
 
     <node pkg="robot_state_publisher" exec="robot_state_publisher">
         <param name="robot_description"
@@ -10,5 +13,7 @@
 
     <node pkg="joint_state_publisher_gui" exec="joint_state_publisher_gui" />
 
-    <node pkg="rviz2" exec="rviz2" output="screen" />
+    <!-- <node pkg="rviz2" exec="rviz2" output="screen" /> -->
+    <node pkg="rviz2" exec="rviz2" output="screen" 
+        args="-d $(var urdf_config_path)"/>
 </launch>
