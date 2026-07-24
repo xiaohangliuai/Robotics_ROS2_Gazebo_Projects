@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+  <material name="grey">
+    <color rgba="0.6 0.6 0.6 1"/>
+  </material>
+  <material name="blue">
+    <color rgba="0 0 0.5 1"/>
+  </material>
+
+
+  <xacro:macro name="box_inertia" params="m x y z o_xyz o_rpy" >
+    <inertial>
+      <mass value="${m}" />
+      <origin xyz="${o_xyz}" rpy="${o_rpy}" />
+      <inertia ixx="${(m/12) * (y*y + z*z)}" ixy="0" ixz="0" 
+               iyy="${(m/12) * (x*x + z*z)}" iyz="0"
+               izz="${(m/12) * (y*y + x*x)}" />
+    </inertial>
+  </xacro:macro>
+
+</robot>
