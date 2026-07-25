@@ -1,12 +1,12 @@
 # Turtlesim Catch Them All
 
-A simple ROS 2 demonstration package that turns the classic turtlesim environment into a small "catch them all" game.
+A simple ROS 2 project that turns Turtlesim into a small catch game. A controller turtle tracks and catches spawned turtles, while the spawner adds new targets over time.
 
-## Overview
+## Demo
 
-This package spawns random turtles into the turtlesim window and controls a main turtle to chase and catch them. It uses ROS 2 nodes, services, and custom messages/interfaces to coordinate the game flow.
+![Turtlesim Catch Game demo](gif/Turtlesim_game.gif)
 
-## What the project does
+## What this project does
 
 - Spawns new turtles at random positions with a configurable frequency.
 - Tracks the currently alive turtles and publishes that list to a topic.
@@ -14,81 +14,37 @@ This package spawns random turtles into the turtlesim window and controls a main
 - Calls a service to remove a caught turtle from the simulation.
 - Supports choosing whether to catch the closest turtle first or simply take the first one in the list.
 
-## Main nodes
+## Project structure
 
-### turtle_spawner
+- `my_robot_bringup/` - launch files and configuration
+- `my_robot_interfaces/` - custom ROS interfaces
+- `turtlesim_catch_them_all/` - main game logic and nodes
+- `gif/` - demo GIF asset
 
-Responsible for:
-- spawning turtles through the turtlesim spawn service
-- keeping track of alive turtles
-- publishing the current turtle list
-- handling the catch service request by killing the target turtle
+## Requirements
 
-### turtle_controller
-
-Responsible for:
-- subscribing to the main turtle pose
-- subscribing to the alive turtle list
-- choosing the target turtle to chase
-- publishing velocity commands to move the main turtle toward the target
-- calling the catch service when the target is reached
-
-## Custom interfaces
-
-This package depends on custom messages and services from the my_robot_interfaces package:
-- Turtle
-- TurtleArray
-- CatchTurtle
-
-## Dependencies
-
-- ROS 2
+- ROS 2 installed and sourced
 - Python 3
-- rclpy
-- turtlesim
-- geometry_msgs
-- my_robot_interfaces
+- `colcon` build tool
 
-## How to run
+## Build
 
-1. Build the workspace:
+From the project root:
 
-   ```bash
-   cd ~/ros2_study_ws
-   colcon build
-   source install/setup.bash
-   ```
+```bash
+source /opt/ros/<your_ros2_distro>/setup.bash
+colcon build
+source install/setup.bash
+```
 
-2. Start turtlesim:
+## Run
 
-   ```bash
-   ros2 run turtlesim turtlesim_node
-   ```
+```bash
+ros2 launch my_robot_bringup turtle_launch.xml
+```
 
-3. Start the spawner node:
+This launch file starts:
 
-   ```bash
-   ros2 run turtlesim_catch_them_all turtle_spawner
-   ```
-
-4. Start the controller node:
-
-   ```bash
-   ros2 run turtlesim_catch_them_all turtle_controller
-   ```
-
-## Notes
-
-You can adjust the behavior of the spawner and controller using ROS 2 parameters, for example:
-- turtle_name_prefix
-- spawn_frequency
-- catch_closest_turtle_first
-
-## Project purpose
-
-This package is a beginner-friendly ROS 2 example that demonstrates:
-- node communication
-- service calls
-- topic publishing/subscription
-- parameter usage
-- custom interfaces in a small interactive simulation
+- `turtlesim_node`
+- `turtle_spawner`
+- `turtle_controller`
