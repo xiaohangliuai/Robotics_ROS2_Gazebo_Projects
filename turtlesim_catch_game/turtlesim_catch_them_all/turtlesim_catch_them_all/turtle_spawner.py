@@ -14,7 +14,7 @@ class TurtleSpawnerNode(Node):
     def __init__(self):
         super().__init__("turtle_spawner")
         self.declare_parameter("turtle_name_prefix", "turtle_V")
-        self.declare_parameter("spawn_frequency", 1.0)
+        self.declare_parameter("spawn_frequency", 3.0)
         self.turtle_name_prefix_ = self.get_parameter("turtle_name_prefix").value
         self.spawn_frequency_ = self.get_parameter("spawn_frequency").value
         self.counter_ = 0
