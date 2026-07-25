@@ -19,4 +19,24 @@
     </inertial>
   </xacro:macro>
 
+  <xacro:macro name="cylinder_inertia" params="m r h o_xyz o_rpy" >
+    <inertial>
+      <mass value="${m}" />
+      <origin xyz="${o_xyz}" rpy="${o_rpy}" />
+      <inertia ixx="${(m/12) * (3*r*r + h*h)}" ixy="0" ixz="0" 
+               iyy="${(m/12) * (3*r*r + h*h)}" iyz="0"
+               izz="${(m/2) * (r*r)}" />
+    </inertial>
+  </xacro:macro>
+
+  <xacro:macro name="sphere_inertia" params="m r o_xyz o_rpy" >
+    <inertial>
+      <mass value="${m}" />
+      <origin xyz="${o_xyz}" rpy="${o_rpy}" />
+      <inertia ixx="${(2/5) * m * r * r}" ixy="0" ixz="0" 
+               iyy="${(2/5) * m * r * r}" iyz="0"
+               izz="${(2/5) * m * r * r}" />
+    </inertial>
+  </xacro:macro>
+
 </robot>
