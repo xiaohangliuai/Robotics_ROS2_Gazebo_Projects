@@ -8,7 +8,7 @@
     <plugin name='gz::sim::systems::Physics' filename='gz-sim-physics-system'/>
     <plugin name='gz::sim::systems::UserCommands' filename='gz-sim-user-commands-system'/>
     <plugin name='gz::sim::systems::SceneBroadcaster' filename='gz-sim-scene-broadcaster-system'/>
-    <plugin name='gz::sim::systems::Contact' filename='gz-sim-contact-system'/> 
+    <plugin name='gz::sim::systems::Contact' filename='gz-sim-contact-system'/>
     <plugin name='gz::sim::systems::Sensors' filename='gz-sim-sensors-system'>
       <render_engine>ogre2</render_engine>
     </plugin>
@@ -77,17 +77,32 @@
     <include>
       <uri>file:///home/yuto/.gz/fuel/fuel.gazebosim.org/openrobotics/models/panda arm - fortress merge include demo/2</uri>
       <name>panda</name>
-      <pose>-0.34571810154297933 -1.3607245653842448 -1.9849983496289746e-07 3.4767531457585083e-06 2.3315459771936404e-08 -0.32076860262730861</pose>
+      <pose>-0.37491736195067205 -1.3408962687040449 -4.1941519782389029e-08 7.6989168550536584e-07 -9.983146524037546e-07 -0.42368110514601104</pose>
     </include>
     <include>
       <uri>file:///home/yuto/.gz/fuel/fuel.gazebosim.org/openrobotics/models/panda arm - fortress merge include demo/2</uri>
       <name>panda_0</name>
-      <pose>-0.039877608883191688 1.7076597302594141 4.5112393366092626e-08 -4.5482866227491055e-07 4.3214492723931109e-07 -0.5421140577711403</pose>
+      <pose>-0.066333261195016258 1.7258957775700074 -7.0013947808278398e-08 1.2436304164480953e-06 -4.3628715734628148e-07 -0.63195077196668592</pose>
     </include>
     <include>
       <uri>file:///home/yuto/.gz/fuel/fuel.gazebosim.org/openrobotics/models/panda with ignition position controller model/5</uri>
       <name>Panda_0</name>
       <pose>1.7208908890211267 0.15973024124043531 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/yuto/.gz/fuel/fuel.gazebosim.org/openrobotics/models/dining table/1</uri>
+      <name>DiningTable</name>
+      <pose>-0.15320600569248199 -4.1566200256347656 0 0 0 -1.6060995176593775</pose>
+    </include>
+    <include>
+      <uri>file:///home/yuto/.gz/fuel/fuel.gazebosim.org/openrobotics/models/office chair/1</uri>
+      <name>OfficeChair</name>
+      <pose>-0.33535610902840052 -5.0783877794204688 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/yuto/.gz/fuel/fuel.gazebosim.org/openrobotics/models/aws_robomaker_warehouse_shelff_01/4</uri>
+      <name>aws_robomaker_warehouse_ShelfF_01</name>
+      <pose>6.0812473017293165 -0.3720517198820632 0 0 0 0</pose>
     </include>
     <light name='sun' type='directional'>
       <pose>0 0 10 0 0 0</pose>
