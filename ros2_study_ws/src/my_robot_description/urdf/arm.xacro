@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+    <xacro:property name="arm_length" value="0.1" />
+    <xacro:property name="arm_width" value="0.1" />
+    <xacro:property name="arm_height" value="0.02" />
+
+    <link name="arm_base_link">
+        <visual>
+            <geometry>
+                <box size="${arm_length} ${arm_width} ${arm_height}"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <material name="orange" />
+        </visual>
+
+        <collision>
+            <geometry>
+                <box size="${arm_length} ${arm_width} ${arm_height}"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </collision>
+
+        <xacro:box_inertia m="1.0" x="${arm_length}" y="${arm_width}" z="${arm_height}"
+                           o_xyz="0 0 0" o_rpy="0 0 0" />
+    </link>
+
+</robot>

@@ -7,7 +7,9 @@
   <material name="blue">
     <color rgba="0 0 0.5 1"/>
   </material>
-
+  <material name="orange">
+    <color rgba="1.0 0.5 0 1"/>
+  </material>
 
   <xacro:macro name="box_inertia" params="m x y z o_xyz o_rpy" >
     <inertial>
