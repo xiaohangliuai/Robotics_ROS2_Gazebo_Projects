@@ -25,7 +25,7 @@
             <origin xyz="0 0 ${arm_base_height/2}" rpy="0 0 0" />
         </collision>
 
-        <xacro:box_inertia m="1.0" x="${arm_base_length}" y="${arm_base_width}" z="${arm_base_height}"
+        <xacro:box_inertia m="0.3" x="${arm_base_length}" y="${arm_base_width}" z="${arm_base_height}"
                            o_xyz="0 0 ${arm_base_height/2}" o_rpy="0 0 0" />
     </link>
 
@@ -45,7 +45,7 @@
             <origin xyz="0 0 ${forearm_length/2}" rpy="0 0 0" />
         </collision>
 
-        <xacro:cylinder_inertia m="1.0" r="${forearm_radius}" h="${forearm_length}"
+        <xacro:cylinder_inertia m="0.3" r="${forearm_radius}" h="${forearm_length}"
                                 o_xyz="0 0 ${forearm_length/2}" o_rpy="0 0 0" />
     </link>
 
@@ -66,7 +66,7 @@
             <material name="orange" />
         </collision>
 
-        <xacro:cylinder_inertia m="1.0" r="${hand_radius}" h="${hand_length}"
+        <xacro:cylinder_inertia m="0.3" r="${hand_radius}" h="${hand_length}"
                                 o_xyz="0 0 ${hand_length/2}" o_rpy="0 0 0" />
     </link>
 
@@ -77,6 +77,7 @@
         <origin xyz="0 0 ${arm_base_height}" rpy="0 0 0" />
         <axis xyz="0 1 0" />
         <limit lower="0" upper="1.57" effort="100" velocity="100"/>
+        <dynamics damping="0.3" friction="0.3"/>
     </joint>
 
     <joint name="forearm_hand_joint" type="revolute">
@@ -85,6 +86,7 @@
         <origin xyz="0 0 ${forearm_length}" rpy="0 0 0" />
         <axis xyz="0 1 0" />
         <limit lower="0" upper="1.57" effort="100" velocity="100"/>
+        <dynamics damping="0.3" friction="0.3"/>
     </joint>
 
 
