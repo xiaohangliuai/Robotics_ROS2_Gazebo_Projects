@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+    <gazebo>
+        <plugin  filename="gz-sim-joint-position-controller-system"
+                name="gz::sim::systems::JointPositionController">
+                <joint_name>arm_base_forearm_joint</joint_name>
+        </plugin>
+        <p_gain>5.0</p_gain>
+    </gazebo>
+
+    <gazebo>
+        <plugin  filename="gz-sim-joint-position-controller-system"
+                name="gz::sim::systems::JointPositionController">
+                <joint_name>forearm_hand_joint</joint_name>
+        </plugin>
+        <p_gain>3.0</p_gain>
+    </gazebo>
+
+    <gazebo>
+        <plugin
+            filename="gz-sim-joint-state-publisher-system"
+            name="gz::sim::systems::JointStatePublisher">
+            <joint_name>arm_base_forearm_joint</joint_name>
+            <joint_name>forearm_hand_joint</joint_name>
+        </plugin>
+    </gazebo>
+
+</robot>

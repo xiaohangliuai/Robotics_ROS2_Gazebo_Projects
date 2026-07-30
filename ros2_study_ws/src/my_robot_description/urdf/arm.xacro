@@ -25,7 +25,7 @@
             <origin xyz="0 0 ${arm_base_height/2}" rpy="0 0 0" />
         </collision>
 
-        <xacro:box_inertia m="0.3" x="${arm_base_length}" y="${arm_base_width}" z="${arm_base_height}"
+        <xacro:box_inertia m="5.0" x="${arm_base_length}" y="${arm_base_width}" z="${arm_base_height}"
                            o_xyz="0 0 ${arm_base_height/2}" o_rpy="0 0 0" />
     </link>
 
