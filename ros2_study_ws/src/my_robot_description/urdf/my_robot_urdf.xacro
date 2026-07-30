@@ -4,6 +4,14 @@
   <xacro:include filename="common_properties.xacro" />
   <xacro:include filename="mobile_base.xacro" />
   <xacro:include filename="mobile_base_gazebo.xacro" />
+  <xacro:include filename="arm.xacro" />
+  <xacro:include filename="arm_gazebo.xacro" />
   <xacro:include filename="camera.xacro" />
+
+  <joint name="mobile_base_arm_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="arm_base_link"/>
+    <origin xyz="0 0 ${base_height}" rpy="0 0 0"/>
+  </joint>
   
 </robot>

@@ -1,6 +1,6 @@
 <launch>
     <let name="urdf_path"
-        value="$(find-pkg-share my_robot_description)/urdf/standalone_arm_urdf.xacro" />
+        value="$(find-pkg-share my_robot_description)/urdf/my_robot_urdf.xacro" />
     <let name="gazebo_bridge_config_path"
         value="$(find-pkg-share my_robot_bringup)/config/gazebo_bridge.yaml" />
     <let name="rviz_config_path"

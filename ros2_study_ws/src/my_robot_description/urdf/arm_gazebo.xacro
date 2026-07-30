@@ -5,16 +5,16 @@
         <plugin  filename="gz-sim-joint-position-controller-system"
                 name="gz::sim::systems::JointPositionController">
                 <joint_name>arm_base_forearm_joint</joint_name>
+                <p_gain>5.0</p_gain>
         </plugin>
-        <p_gain>5.0</p_gain>
     </gazebo>
 
     <gazebo>
         <plugin  filename="gz-sim-joint-position-controller-system"
                 name="gz::sim::systems::JointPositionController">
                 <joint_name>forearm_hand_joint</joint_name>
+                <p_gain>3.0</p_gain>
         </plugin>
-        <p_gain>3.0</p_gain>
     </gazebo>
 
     <gazebo>
