@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
 
-  <xacro:property name="base_length" value="0.6" />
-  <xacro:property name="base_width" value="0.4" />
-  <xacro:property name="base_height" value="0.2" />
-  <xacro:property name="wheel_radius" value="0.1" />
-  <xacro:property name="wheel_length" value="0.05" />
+  <xacro:property name="base_length" value="0.7" />
+  <xacro:property name="base_width" value="0.45" />
+  <xacro:property name="base_height" value="0.18" />
+  <xacro:property name="wheel_radius" value="0.10" />
+  <xacro:property name="wheel_length" value="0.06" />
 
   <link name="base_footprint" />
 
@@ -15,7 +15,23 @@
         <box size="${base_length} ${base_width} ${base_height}"/>
       </geometry>
       <origin xyz="0 0 ${base_height / 2.0}" rpy="0 0 0" />
-      <material name="blue" />
+      <material name="dark_blue" />
+    </visual>
+
+    <visual>
+      <geometry>
+        <box size="${base_length * 0.82} ${base_width * 0.76} ${base_height * 0.18}"/>
+      </geometry>
+      <origin xyz="0 0 ${base_height + base_height * 0.09}" rpy="0 0 0" />
+      <material name="light_grey" />
+    </visual>
+
+    <visual>
+      <geometry>
+        <box size="${base_length * 0.14} ${base_width * 0.90} ${base_height * 0.22}"/>
+      </geometry>
+      <origin xyz="${base_length * 0.25} 0 ${base_height * 0.60}" rpy="0 0 0" />
+      <material name="black" />
     </visual>
     
     <collision>
@@ -36,7 +52,15 @@
         <cylinder radius="${wheel_radius}" length="${wheel_length}"/>
       </geometry>
       <origin xyz="0 0 0" rpy="${pi / 2.0} 0 0" />
-      <material name="grey" />
+      <material name="dark_grey" />
+    </visual>
+
+    <visual>
+      <geometry>
+        <cylinder radius="${wheel_radius * 0.72}" length="${wheel_length * 0.18}"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="${pi / 2.0} 0 0" />
+      <material name="light_grey" />
     </visual>
 
     <collision>
@@ -60,7 +84,7 @@
         <sphere radius="${wheel_radius / 2.0}" />
       </geometry>
       <origin xyz="0 0 0" rpy="0 0 0" />
-      <material name="grey" />
+      <material name="dark_grey" />
     </visual>
 
     <collision>

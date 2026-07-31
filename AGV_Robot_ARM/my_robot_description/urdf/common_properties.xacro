@@ -7,6 +7,18 @@
   <material name="blue">
     <color rgba="0 0 0.5 1"/>
   </material>
+  <material name="dark_blue">
+    <color rgba="0.08 0.16 0.34 1"/>
+  </material>
+  <material name="dark_grey">
+    <color rgba="0.25 0.25 0.28 1"/>
+  </material>
+  <material name="light_grey">
+    <color rgba="0.85 0.85 0.87 1"/>
+  </material>
+  <material name="black">
+    <color rgba="0.08 0.08 0.08 1"/>
+  </material>
   <material name="orange">
     <color rgba="1.0 0.5 0 1"/>
   </material>

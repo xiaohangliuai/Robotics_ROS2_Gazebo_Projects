@@ -105,3 +105,19 @@ If the simulation does not start correctly:
 2. Verify that all required ROS 2 and Gazebo packages are installed.
 3. Check the terminal output for missing package or plugin errors.
 4. Rebuild the workspace after changing URDF/Xacro files.
+
+To do:
+Make the simulation more realistic
+
+Improve the robot model appearance with better meshes, materials, and proportions.
+Add more realistic camera placement and field of view.
+Consider adding a more complete world environment with obstacles or tasks.
+Strengthen the robotics experience
+
+Add a simple control interface for the arm or mobile base.
+Support basic navigation or task demonstrations, such as moving to a target position or picking up an object.
+Add ROS topics/services/actions that make the system easier to interact with.
+
+Add a small demo scenario, such as “robot moves to a goal,” “camera detects an object,” or “arm performs a simple task.”
+Record a clean demo video/GIF and highlight the key features.
+Include a short architecture overview showing how Gazebo, URDF, and ROS 2 interact.
