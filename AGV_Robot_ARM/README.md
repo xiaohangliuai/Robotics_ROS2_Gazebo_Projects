@@ -2,6 +2,10 @@
 
 This repository contains a ROS 2 + Gazebo project for simulating an AGV robot arm with a camera sensor, mobile base, and arm joints.
 
+## Demo
+
+![AGV Robot Arm demo](gif/agv_robot_arm.gif)
+
 ## Project Overview
 
 The project is organized into two main ROS 2 packages:
