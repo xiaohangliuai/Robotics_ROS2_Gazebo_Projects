@@ -1,6 +1,6 @@
 # Robotics Projects
 
-This workspace contains two small robotics projects:
+This workspace contains a few robotics projects that reflect how I’m learning robotics:
 
 ## turtlesim_catch_game
 A playful ROS 2 simulation project built around the turtlesim environment, where the goal is to catch and interact with turtles in a simple game-style setup.
