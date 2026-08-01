@@ -4,14 +4,14 @@ from rclpy.node import Node
 import time
 from rclpy.action import ActionServer
 from rclpy.action.server import ServerGoalHandle
-from my_robot_interfaces.action import CountUntill
+from my_robot_interfaces.action import CountUntil
 
 class CountUntilActionServer(Node):
     def __init__(self):
         super().__init__('count_until_action_server')
         self._action_server = ActionServer(
             self,
-            CountUntill,
+            CountUntil,
             'count_until',
             self.execute_callback
         )
@@ -34,7 +34,7 @@ class CountUntilActionServer(Node):
 
         # Once the counting is done, set the result and mark the goal as succeeded
         goal_handle.succeed()
-        result = CountUntill.Result()
+        result = CountUntil.Result()
         result.reached_number = counter
         self.get_logger().info(f'Counting completed. Final count: {result.reached_number}')
         return result
