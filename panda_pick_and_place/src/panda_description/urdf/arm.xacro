@@ -8,12 +8,12 @@
   <link name="panda_link0">
     <visual>
       <geometry>
-        <mesh filename="package://panda_description/meshes/visual/link0.dae"/>
+        <mesh filename="$(find panda_description)/meshes/visual/link0.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://panda_description/meshes/collision/link0.obj"/>
+        <mesh filename="$(find panda_description)/meshes/collision/link0.obj"/>
       </geometry>
     </collision>
       <inertial>
@@ -34,12 +34,12 @@
   <link name="panda_link1">
     <visual>
       <geometry>
-        <mesh filename="package://panda_description/meshes/visual/link1.dae"/>
+        <mesh filename="$(find panda_description)/meshes/visual/link1.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://panda_description/meshes/collision/link1.obj"/>
+        <mesh filename="$(find panda_description)/meshes/collision/link1.obj"/>
       </geometry>
     </collision>
         <inertial>
@@ -63,12 +63,12 @@
   <link name="panda_link2">
     <visual>
       <geometry>
-        <mesh filename="package://panda_description/meshes/visual/link2.dae"/>
+        <mesh filename="$(find panda_description)/meshes/visual/link2.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://panda_description/meshes/collision/link2.obj"/>
+        <mesh filename="$(find panda_description)/meshes/collision/link2.obj"/>
       </geometry>
     </collision>
         <inertial>
@@ -92,12 +92,12 @@
   <link name="panda_link3">
     <visual>
       <geometry>
-        <mesh filename="package://panda_description/meshes/visual/link3.dae"/>
+        <mesh filename="$(find panda_description)/meshes/visual/link3.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://panda_description/meshes/collision/link3.obj"/>
+        <mesh filename="$(find panda_description)/meshes/collision/link3.obj"/>
       </geometry>
     </collision>
       <inertial>
@@ -121,12 +121,12 @@
   <link name="panda_link4">
     <visual>
       <geometry>
-        <mesh filename="package://panda_description/meshes/visual/link4.dae"/>
+        <mesh filename="$(find panda_description)/meshes/visual/link4.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://panda_description/meshes/collision/link4.obj"/>
+        <mesh filename="$(find panda_description)/meshes/collision/link4.obj"/>
       </geometry>
     </collision>
       <inertial>
@@ -150,12 +150,12 @@
   <link name="panda_link5">
     <visual>
       <geometry>
-        <mesh filename="package://panda_description/meshes/visual/link5.dae"/>
+        <mesh filename="$(find panda_description)/meshes/visual/link5.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://panda_description/meshes/collision/link5.obj"/>
+        <mesh filename="$(find panda_description)/meshes/collision/link5.obj"/>
       </geometry>
     </collision>
       <inertial>
@@ -179,12 +179,12 @@
   <link name="panda_link6">
     <visual>
       <geometry>
-        <mesh filename="package://panda_description/meshes/visual/link6.dae"/>
+        <mesh filename="$(find panda_description)/meshes/visual/link6.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://panda_description/meshes/collision/link6.obj"/>
+        <mesh filename="$(find panda_description)/meshes/collision/link6.obj"/>
       </geometry>
     </collision>
       <inertial>
@@ -208,12 +208,12 @@
   <link name="panda_link7">
     <visual>
       <geometry>
-        <mesh filename="package://panda_description/meshes/visual/link7.dae"/>
+        <mesh filename="$(find panda_description)/meshes/visual/link7.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://panda_description/meshes/collision/link7.obj"/>
+        <mesh filename="$(find panda_description)/meshes/collision/link7.obj"/>
       </geometry>
     </collision>
       <inertial>
@@ -237,12 +237,12 @@
   <link name="panda_hand">
     <visual>
       <geometry>
-        <mesh filename="package://panda_description/meshes/visual/hand.dae"/>
+        <mesh filename="$(find panda_description)/meshes/visual/hand.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://panda_description/meshes/collision/hand.obj"/>
+        <mesh filename="$(find panda_description)/meshes/collision/hand.obj"/>
       </geometry>
     </collision>
       <inertial>
@@ -263,12 +263,12 @@
   <link name="panda_leftfinger">
     <visual>
       <geometry>
-        <mesh filename="package://panda_description/meshes/visual/finger.dae"/>
+        <mesh filename="$(find panda_description)/meshes/visual/finger.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://panda_description/meshes/collision/finger.obj"/>
+        <mesh filename="$(find panda_description)/meshes/collision/finger.obj"/>
       </geometry>
     </collision>
       <inertial>
@@ -283,13 +283,13 @@
     <visual>
       <origin rpy="0 0 3.14159265359" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://panda_description/meshes/visual/finger.dae"/>
+        <mesh filename="$(find panda_description)/meshes/visual/finger.dae"/>
       </geometry>
     </visual>
     <collision>
       <origin rpy="0 0 3.14159265359" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://panda_description/meshes/collision/finger.obj"/>
+        <mesh filename="$(find panda_description)/meshes/collision/finger.obj"/>
       </geometry>
     </collision>
       <inertial>

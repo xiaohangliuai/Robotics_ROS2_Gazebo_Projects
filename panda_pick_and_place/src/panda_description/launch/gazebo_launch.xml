@@ -1,0 +1,29 @@
+<launch>
+    <let name="urdf_path"
+        value="$(find-pkg-share panda_description)/urdf/panda_urdf.xacro" />
+    <let name="rviz_config_path"
+        value="$(find-pkg-share panda_description)/rviz/display.rviz" />
+    <let name="world_path"
+        value="$(find-pkg-share panda_description)/worlds/empty_world.sdf" />
+    <let name="model_path"
+        value="$(find-pkg-share panda_description)/models" />
+    <let name="package_share_path"
+        value="$(find-pkg-share panda_description)" />
+    <let name="robot_description"
+        value="$(command 'xacro $(var urdf_path)')" />
+
+    <set_env name="GZ_SIM_RESOURCE_PATH" value="$(var model_path):$(var package_share_path)" />
+
+    <node pkg="robot_state_publisher" exec="robot_state_publisher">
+        <param name="robot_description"
+            value="$(var robot_description)" />
+    </node>
+
+    <include file="$(find-pkg-share ros_gz_sim)/launch/gz_sim.launch.py">
+        <arg name="gz_args" value="$(var world_path) -r" />
+    </include>
+
+    <node pkg="ros_gz_sim" exec="create" args="-world empty_world -param robot_description -name panda -x 0.0 -y 0.0 -z 0.0 -Y 0.0">
+        <param name="robot_description" value="$(var robot_description)" />
+    </node>
+</launch>
