@@ -318,4 +318,4 @@
     <!-- <mimic joint="panda_finger_joint1" multiplier="-1"/> -->
   </joint>
 
-</robot>
+</robot> 
