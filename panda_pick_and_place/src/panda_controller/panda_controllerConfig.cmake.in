@@ -1,0 +1,14 @@
+# - Config file for the panda_controller package
+# It defines the following variables
+#  panda_controller_INCLUDE_DIRS - include directories for FooBar
+#  panda_controller_LIBRARIES    - libraries to link against
+#  panda_controller_EXECUTABLE   - the bar executable
+
+set(panda_controller_INCLUDE_DIRS "@CONF_INCLUDE_DIRS@")
+
+# Our library dependencies (contains definitions for IMPORTED targets)
+include("${panda_controller_DIR}/export_panda_controller.cmake")
+
+# These are IMPORTED targets created by panda_controllerTargets.cmake
+
+
