@@ -10,9 +10,10 @@
     <let name="package_share_path"
         value="$(find-pkg-share panda_description)" />
     <let name="robot_description"
-        value="$(command 'xacro $(var urdf_path)')" />
+        value="$(command 'xacro $(var urdf_path) mesh_prefix:=file://$(var package_share_path)/meshes')" />
 
     <set_env name="GZ_SIM_RESOURCE_PATH" value="$(var model_path):$(var package_share_path)" />
+    <set_env name="GAZEBO_MODEL_PATH" value="$(var model_path):$(var package_share_path)" />
 
     <node pkg="robot_state_publisher" exec="robot_state_publisher">
         <param name="robot_description"

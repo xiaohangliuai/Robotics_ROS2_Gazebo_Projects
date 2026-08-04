@@ -31,12 +31,17 @@ def generate_launch_description():
         ]
     )
 
-    model_path = str(Path(panda_description).parent.resolve())
-    model_path += pathsep + os.path.join(get_package_share_directory("panda_description"), 'models')
+    share_root = str(Path(panda_description).parent.resolve())
+    gazebo_model_path = os.path.join(panda_description, 'models')
+    resource_paths = os.pathsep.join([share_root, panda_description, gazebo_model_path])
 
     gazebo_resource_path = SetEnvironmentVariable(
         "GZ_SIM_RESOURCE_PATH",
-        model_path
+        resource_paths
+        )
+    gazebo_model_path_env = SetEnvironmentVariable(
+        "GAZEBO_MODEL_PATH",
+        resource_paths
         )
 
     ros_distro = os.environ["ROS_DISTRO"]
@@ -46,7 +51,8 @@ def generate_launch_description():
             "xacro ",
             LaunchConfiguration("model"),
             " is_ignition:=",
-            is_ignition
+            is_ignition,
+            " mesh_prefix:=file://" + panda_description + "/meshes"
         ]),
         value_type=str
     )
@@ -106,6 +112,7 @@ def generate_launch_description():
         robot_state_publisher_node,
         gazebo,
         gz_spawn_entity,
+        gazebo_model_path_env,
         # gz_ros2_bridge,
         # ros_gz_image_bridge
     ])
