@@ -22,12 +22,12 @@ def generate_launch_description():
         description="Absolute path to robot urdf file"
     )
 
-    world_name_arg = DeclareLaunchArgument(name="world_name", default_value="empty")
+    world_name_arg = DeclareLaunchArgument(name="world_name", default_value="empty_world.sdf")
 
     world_path = PathJoinSubstitution([
             panda_description,
             "worlds",
-            PythonExpression(expression=["'", LaunchConfiguration("world_name"), "'", " + '.world'"])
+            LaunchConfiguration("world_name")
         ]
     )
 
@@ -113,6 +113,6 @@ def generate_launch_description():
         gazebo,
         gz_spawn_entity,
         gazebo_model_path_env,
-        # gz_ros2_bridge,
-        # ros_gz_image_bridge
+        gz_ros2_bridge,
+        ros_gz_image_bridge
     ])

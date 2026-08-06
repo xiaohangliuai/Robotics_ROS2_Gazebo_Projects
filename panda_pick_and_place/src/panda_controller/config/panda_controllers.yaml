@@ -12,7 +12,7 @@ controller_manager:
 arm_controller:
   ros__parameters:
     joints:
-      - panda_joint1
+      - panda_joint1  
       - panda_joint2
       - panda_joint3
       - panda_joint4
