@@ -21,10 +21,12 @@
     </node>
 
     <include file="$(find-pkg-share ros_gz_sim)/launch/gz_sim.launch.py">
-        <arg name="gz_args" value="$(var world_path) -r" />
+        <arg name="gz_args" value="$(var world_path) -v 4 -r" />
     </include>
 
-    <node pkg="ros_gz_sim" exec="create" args="-world empty_world -param robot_description -name panda -x 0.0 -y 0.0 -z 0.0 -Y 0.0">
-        <param name="robot_description" value="$(var robot_description)" />
-    </node>
+    <node pkg="ros_gz_sim" exec="create" args="-topic robot_description -name panda -x 0.0 -y 0.0 -z 0.0 -R 0.0 -P 0.0 -Y 0.0" />
+
+    <node pkg="ros_gz_bridge" exec="parameter_bridge" args="/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock /camera/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo" />
+
+    <node pkg="ros_gz_image" exec="image_bridge" args="/camera/image_raw" />
 </launch>
