@@ -10,6 +10,13 @@ from cv_bridge import CvBridge
 import tf2_ros
 import tf_transformations
 
+# Gazebo camera
+#   → /camera/image_raw
+#   → OpenCV colour detection
+#   → pixel position → estimated 3D camera point
+#   → TF transform into panda_link0
+#   → /color_coordinates
+
 class ColorDetector(Node):
     def __init__(self):
         super().__init__('color_detector')
