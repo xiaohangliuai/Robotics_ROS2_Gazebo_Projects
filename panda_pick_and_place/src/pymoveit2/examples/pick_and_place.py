@@ -13,11 +13,14 @@ import rclpy
 from rclpy.node import Node
 from rclpy.callback_groups import ReentrantCallbackGroup
 from std_msgs.msg import String
+from builtin_interfaces.msg import Duration
+from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 
-from pymoveit2 import MoveIt2, GripperInterface
+from pymoveit2 import MoveIt2
 from pymoveit2.robots import panda
 
 import math
+import time
 
 
 class PickAndPlace(Node):
@@ -52,15 +55,12 @@ class PickAndPlace(Node):
         self.moveit2.max_velocity = 0.1
         self.moveit2.max_acceleration = 0.1
 
-        # Gripper interface
-        self.gripper = GripperInterface(
-            node=self,
-            gripper_joint_names=panda.gripper_joint_names(),
-            open_gripper_joint_positions=panda.OPEN_GRIPPER_JOINT_POSITIONS,
-            closed_gripper_joint_positions=panda.CLOSED_GRIPPER_JOINT_POSITIONS,
-            gripper_group_name=panda.MOVE_GROUP_GRIPPER,
-            callback_group=self.callback_group,
-            gripper_command_action_name="gripper_action_controller/gripper_cmd",
+        # The project configures gripper_controller as a JointTrajectoryController.
+        # Command it directly rather than asking MoveIt to plan a gripper motion.
+        self.gripper_command_pub = self.create_publisher(
+            JointTrajectory,
+            "/gripper_controller/joint_trajectory",
+            10,
         )
 
         # Subscriber
@@ -116,15 +116,14 @@ class PickAndPlace(Node):
 
             # 1. Move to home joint configuration
             self.moveit2.move_to_configuration(self.home_joints)
-            self.moveit2.wait_until_executed()
+            self.wait_for_arm_motion("move to home")
 
             # 2. Move above target (Cartesian)
             self.moveit2.move_to_pose(position=pick_position, quat_xyzw=quat_xyzw)
-            self.moveit2.wait_until_executed()
+            self.wait_for_arm_motion("move above the object")
 
             # 3. Open gripper
-            self.gripper.open()
-            self.gripper.wait_until_executed()
+            self.command_gripper(open_gripper=True)
 
             # 4. Move down to approach object
             approach_position = [
@@ -138,11 +137,10 @@ class PickAndPlace(Node):
                 quat_xyzw=quat_xyzw,
                 cartesian=True
             )
-            self.moveit2.wait_until_executed()
+            self.wait_for_arm_motion("approach the object")
 
             # 5. Close gripper
-            self.gripper.close()
-            self.gripper.wait_until_executed()
+            self.command_gripper(open_gripper=False)
 
             # 6. Lift up back to pick_position
             # self.moveit2.move_to_pose(position=pick_position, quat_xyzw=quat_xyzw)
@@ -150,28 +148,50 @@ class PickAndPlace(Node):
 
             # 7. Move to home joint configuration
             self.moveit2.move_to_configuration(self.home_joints)
-            self.moveit2.wait_until_executed()
+            self.wait_for_arm_motion("lift to home")
 
             # 8. Move to drop joint configuration
             self.moveit2.move_to_configuration(self.drop_joints)
-            self.moveit2.wait_until_executed()
+            self.wait_for_arm_motion("move to the drop position")
 
             # 9. Open gripper to release
-            self.gripper.open()
-            self.gripper.wait_until_executed()
+            self.command_gripper(open_gripper=True)
 
-            # 10. Close gripper
-            self.gripper.close()
-            self.gripper.wait_until_executed()
-
-            # 11. Return to start joint configuration
+            # 10. Return to start joint configuration with the gripper open.
+            # Closing it here can immediately clamp the released box again.
             self.moveit2.move_to_configuration(self.start_joints)
-            self.moveit2.wait_until_executed()
+            self.wait_for_arm_motion("return to start")
 
             self.get_logger().info("Pick-and-place sequence complete.")
 
         except Exception as e:
             self.get_logger().error(f"Pick-and-place sequence failed: {e}")
+
+    def wait_for_arm_motion(self, motion_name):
+        """Wait for a planned arm motion and fail fast if MoveIt rejected it."""
+        if not self.moveit2.wait_until_executed():
+            raise RuntimeError(f"MoveIt could not {motion_name}.")
+
+    def command_gripper(self, open_gripper):
+        """Open or close the simulated gripper through its trajectory controller."""
+        positions = (
+            panda.OPEN_GRIPPER_JOINT_POSITIONS
+            if open_gripper
+            else panda.CLOSED_GRIPPER_JOINT_POSITIONS
+        )
+
+        trajectory = JointTrajectory()
+        trajectory.joint_names = panda.gripper_joint_names()
+
+        point = JointTrajectoryPoint()
+        point.positions = positions
+        point.time_from_start = Duration(sec=1)
+        trajectory.points.append(point)
+
+        action = "Opening" if open_gripper else "Closing"
+        self.get_logger().info(f"{action} gripper through gripper_controller")
+        self.gripper_command_pub.publish(trajectory)
+        time.sleep(1.2)
 
 
 def main():
