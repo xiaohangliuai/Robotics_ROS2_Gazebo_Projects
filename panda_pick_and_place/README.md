@@ -10,12 +10,7 @@ and the pick-and-place node plans and executes the arm and gripper motions.
 
 ## Demo
 
-<video controls width="900">
-  <source src="./src/gif/panda_color_detection_pick%26place.mp4" type="video/mp4">
-  Your browser does not support embedded MP4 video.
-</video>
-
-[Watch or download the MP4 demo](./src/gif/panda_color_detection_pick%26place.mp4)
+![Panda color-detection pick-and-place demo](./src/gif/panda_color_detection_pickplace-ezgif.com-video-to-gif-converter.gif)
 
 ## Packages
 
