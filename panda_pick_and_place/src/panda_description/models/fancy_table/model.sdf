@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<sdf version="1.9">
+  <model name="fancy_table">
+    <static>true</static>
+    <link name="table">
+      <!-- Simple collision shapes keep the table stable and inexpensive to simulate. -->
+      <collision name="top_collision">
+        <!-- Top surface is z=0.35, matching panda_link0 in arm.xacro. -->
+        <pose>0 0 0.315 0 0 0</pose>
+        <geometry><box><size>1.12 0.56 0.07</size></box></geometry>
+      </collision>
+      <collision name="left_leg_collision">
+        <pose>-0.43 0 0.1525 0 0 0</pose>
+        <geometry><box><size>0.06 0.44 0.305</size></box></geometry>
+      </collision>
+      <collision name="right_leg_collision">
+        <pose>0.43 0 0.1525 0 0 0</pose>
+        <geometry><box><size>0.06 0.44 0.305</size></box></geometry>
+      </collision>
+
+      <!-- Warm walnut top. -->
+      <visual name="walnut_top">
+        <pose>0 0 0.315 0 0 0</pose>
+        <geometry><box><size>1.12 0.56 0.07</size></box></geometry>
+        <material>
+          <ambient>0.24 0.075 0.025 1</ambient>
+          <diffuse>0.42 0.14 0.045 1</diffuse>
+          <specular>0.22 0.16 0.10 1</specular>
+        </material>
+      </visual>
+
+      <!-- Thin brass edge bands give the top a more finished appearance. -->
+      <visual name="front_brass_trim">
+        <pose>0 -0.283 0.315 0 0 0</pose>
+        <geometry><box><size>1.13 0.012 0.075</size></box></geometry>
+        <material>
+          <ambient>0.55 0.32 0.07 1</ambient>
+          <diffuse>0.85 0.58 0.16 1</diffuse>
+          <specular>0.95 0.80 0.35 1</specular>
+        </material>
+      </visual>
+      <visual name="back_brass_trim">
+        <pose>0 0.283 0.315 0 0 0</pose>
+        <geometry><box><size>1.13 0.012 0.075</size></box></geometry>
+        <material>
+          <ambient>0.55 0.32 0.07 1</ambient>
+          <diffuse>0.85 0.58 0.16 1</diffuse>
+          <specular>0.95 0.80 0.35 1</specular>
+        </material>
+      </visual>
+
+      <!-- Matte-black steel pedestal legs and lower crossbar. -->
+      <visual name="left_leg">
+        <pose>-0.43 0 0.1525 0 0 0</pose>
+        <geometry><box><size>0.06 0.44 0.305</size></box></geometry>
+        <material>
+          <ambient>0.025 0.03 0.035 1</ambient>
+          <diffuse>0.055 0.065 0.075 1</diffuse>
+          <specular>0.35 0.38 0.40 1</specular>
+        </material>
+      </visual>
+      <visual name="right_leg">
+        <pose>0.43 0 0.1525 0 0 0</pose>
+        <geometry><box><size>0.06 0.44 0.305</size></box></geometry>
+        <material>
+          <ambient>0.025 0.03 0.035 1</ambient>
+          <diffuse>0.055 0.065 0.075 1</diffuse>
+          <specular>0.35 0.38 0.40 1</specular>
+        </material>
+      </visual>
+      <visual name="lower_crossbar">
+        <pose>0 0 0.10 0 0 0</pose>
+        <geometry><box><size>0.86 0.045 0.045</size></box></geometry>
+        <material>
+          <ambient>0.025 0.03 0.035 1</ambient>
+          <diffuse>0.055 0.065 0.075 1</diffuse>
+          <specular>0.35 0.38 0.40 1</specular>
+        </material>
+      </visual>
+
+      <!-- Brass feet echo the trim around the tabletop. -->
+      <visual name="left_foot">
+        <pose>-0.43 0 0.035 0 0 0</pose>
+        <geometry><box><size>0.09 0.48 0.07</size></box></geometry>
+        <material>
+          <ambient>0.55 0.32 0.07 1</ambient>
+          <diffuse>0.85 0.58 0.16 1</diffuse>
+          <specular>0.95 0.80 0.35 1</specular>
+        </material>
+      </visual>
+      <visual name="right_foot">
+        <pose>0.43 0 0.035 0 0 0</pose>
+        <geometry><box><size>0.09 0.48 0.07</size></box></geometry>
+        <material>
+          <ambient>0.55 0.32 0.07 1</ambient>
+          <diffuse>0.85 0.58 0.16 1</diffuse>
+          <specular>0.95 0.80 0.35 1</specular>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>

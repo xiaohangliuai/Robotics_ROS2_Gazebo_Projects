@@ -1,4 +1,7 @@
 <launch>
+    <arg name="conveyor_speed" default="0.15"
+        description="Conveyor surface speed in metres per second" />
+
     <let name="urdf_path"
         value="$(find-pkg-share panda_description)/urdf/panda_urdf.xacro" />
     <let name="rviz_config_path"
@@ -29,4 +32,11 @@
     <node pkg="ros_gz_bridge" exec="parameter_bridge" args="/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock /camera/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo" />
 
     <node pkg="ros_gz_image" exec="image_bridge" args="/camera/image_raw" />
+
+    <!-- TrackController keeps the most recent command, so one delayed command starts the belt. -->
+    <timer period="3.0">
+        <executable
+            cmd="gz topic -t /model/conveyor/link/belt_link/track_cmd_vel -m gz.msgs.Double -p data:$(var conveyor_speed)"
+            output="screen" />
+    </timer>
 </launch>

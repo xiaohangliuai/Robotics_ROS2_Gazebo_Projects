@@ -45,7 +45,7 @@ def generate_launch_description():
         joint_state_publisher_gui_node = Node(
             package="joint_state_publisher_gui",
             executable="joint_state_publisher_gui",
-            env=gui_env,
+            additional_env=gui_env,
         )
 
         rviz_node = Node(
@@ -54,7 +54,7 @@ def generate_launch_description():
             name="rviz2",
             output="screen",
             arguments=["-d", os.path.join(panda_description_dir, "rviz", "display.rviz")],
-            env=gui_env,
+            additional_env=gui_env,
         )
         launch_nodes.extend([joint_state_publisher_gui_node, rviz_node])
     else:
