@@ -252,9 +252,11 @@ class PickAndPlace(Node):
             self.wait_for_arm_motion("return to start")
 
             self.get_logger().info("Pick-and-place sequence complete.")
+            return True
 
         except Exception as e:
             self.get_logger().error(f"Pick-and-place sequence failed: {e}")
+            return False
 
     def wait_for_arm_motion(self, motion_name):
         """Wait for a planned arm motion and fail fast if MoveIt rejected it."""
