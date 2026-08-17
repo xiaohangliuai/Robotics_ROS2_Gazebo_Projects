@@ -23,6 +23,15 @@ import math
 import time
 
 
+# Container centers expressed in the MoveIt planning frame (panda_link0).
+# The corresponding world positions are defined in pick_and_place_world.sdf.
+CONTAINER_POSITIONS = {
+    "R": [-0.56, 0.35],
+    "G": [-0.56, 0.05],
+    "B": [-0.56, -0.25],
+}
+
+
 class PickAndPlace(Node):
     def __init__(self):
         super().__init__("pick_and_place")
@@ -30,10 +39,30 @@ class PickAndPlace(Node):
         # Parameters
         self.declare_parameter("target_color", "R")
         self.target_color = self.get_parameter("target_color").value.upper()
+        if self.target_color not in CONTAINER_POSITIONS:
+            raise ValueError(
+                "target_color must be R, G, or B; "
+                f"received '{self.target_color}'"
+            )
 
-        self.declare_parameter("approach_offset", 0.31)
-        self.approach_offset = float(
-            self.get_parameter("approach_offset").value
+        # The detector estimates horizontal position from the camera image, but
+        # its fixed depth value is not a reliable grasp height. These heights
+        # are panda_hand positions measured in panda_link0 for this table.
+        self.declare_parameter("pick_hover_height", 0.50)
+        self.pick_hover_height = float(
+            self.get_parameter("pick_hover_height").value
+        )
+        self.declare_parameter("grasp_height", 0.14)
+        self.grasp_height = float(
+            self.get_parameter("grasp_height").value
+        )
+        self.declare_parameter("container_approach_height", 0.45)
+        self.container_approach_height = float(
+            self.get_parameter("container_approach_height").value
+        )
+        self.declare_parameter("container_release_height", 0.25)
+        self.container_release_height = float(
+            self.get_parameter("container_release_height").value
         )
         # Flags
         self.already_moved = False
@@ -72,8 +101,6 @@ class PickAndPlace(Node):
         # Predefined joint positions (in radians)
         self.start_joints = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, math.radians(-125.0)]
         self.home_joints  = [0.0, 0.0, 0.0, math.radians(-90.0), 0.0, math.radians(92.0), math.radians(50.0)]
-        self.drop_joints  = [math.radians(-155.0), math.radians(30.0), math.radians(-20.0),
-                             math.radians(-124.0), math.radians(44.0), math.radians(163.0), math.radians(7.0)]
 
         # Move to start joint configuration
         self.moveit2.move_to_configuration(self.start_joints)
@@ -108,9 +135,43 @@ class PickAndPlace(Node):
     def run_pick_and_place(self, target_coords):
         """Run the blocking MoveIt sequence outside the ROS subscription callback."""
         try:
-            # Use the locked coordinates
-            pick_position = [target_coords[0], target_coords[1], target_coords[2] - 0.60]
+            # Only X/Y come from vision. The detector uses an assumed camera
+            # depth, so deriving Z from it made the fingers stop at the top of
+            # the box. At grasp_height=0.14 m the fingers extend from about
+            # z=0.028 to z=0.082 and surround the 0.08 m-high box.
+            pick_position = [
+                target_coords[0],
+                target_coords[1],
+                self.pick_hover_height,
+            ]
+            grasp_position = [
+                target_coords[0],
+                target_coords[1],
+                self.grasp_height,
+            ]
+            container_xy = CONTAINER_POSITIONS[self.target_color]
+            container_approach_position = [
+                container_xy[0],
+                container_xy[1],
+                self.container_approach_height,
+            ]
+            container_release_position = [
+                container_xy[0],
+                container_xy[1],
+                self.container_release_height,
+            ]
             quat_xyzw = [0.0, 1.0, 0.0, 0.0]
+
+            self.get_logger().info(
+                f"Picking {self.target_color} at "
+                f"[{grasp_position[0]:.3f}, {grasp_position[1]:.3f}, "
+                f"{grasp_position[2]:.3f}] in panda_link0"
+            )
+            self.get_logger().info(
+                f"Placing {self.target_color} in its container at "
+                f"[{container_xy[0]:.3f}, {container_xy[1]:.3f}] "
+                "in panda_link0"
+            )
 
             # --- Pick-and-place sequence ---
 
@@ -125,15 +186,9 @@ class PickAndPlace(Node):
             # 3. Open gripper
             self.command_gripper(open_gripper=True)
 
-            # 4. Move down to approach object
-            approach_position = [
-                pick_position[0],
-                pick_position[1],
-                pick_position[2] - self.approach_offset
-            ]
-
+            # 4. Descend until the fingers surround the object
             self.moveit2.move_to_pose(
-                position=approach_position,
+                position=grasp_position,
                 quat_xyzw=quat_xyzw,
                 cartesian=True
             )
@@ -143,21 +198,44 @@ class PickAndPlace(Node):
             self.command_gripper(open_gripper=False)
 
             # 6. Lift up back to pick_position
-            # self.moveit2.move_to_pose(position=pick_position, quat_xyzw=quat_xyzw)
-            # self.moveit2.wait_until_executed()
+            self.moveit2.move_to_pose(
+                position=pick_position,
+                quat_xyzw=quat_xyzw,
+                cartesian=True,
+            )
+            self.wait_for_arm_motion("lift the object")
 
             # 7. Move to home joint configuration
             self.moveit2.move_to_configuration(self.home_joints)
             self.wait_for_arm_motion("lift to home")
 
-            # 8. Move to drop joint configuration
-            self.moveit2.move_to_configuration(self.drop_joints)
-            self.wait_for_arm_motion("move to the drop position")
+            # 8. Move above the matching open-top container
+            self.moveit2.move_to_pose(
+                position=container_approach_position,
+                quat_xyzw=quat_xyzw,
+            )
+            self.wait_for_arm_motion("move above the container")
 
-            # 9. Open gripper to release
+            # 9. Descend vertically into the container opening
+            self.moveit2.move_to_pose(
+                position=container_release_position,
+                quat_xyzw=quat_xyzw,
+                cartesian=True,
+            )
+            self.wait_for_arm_motion("lower the object into the container")
+
+            # 10. Open gripper to release the box
             self.command_gripper(open_gripper=True)
 
-            # 10. Return to start joint configuration with the gripper open.
+            # 11. Retreat vertically so the fingers clear the container walls
+            self.moveit2.move_to_pose(
+                position=container_approach_position,
+                quat_xyzw=quat_xyzw,
+                cartesian=True,
+            )
+            self.wait_for_arm_motion("retreat from the container")
+
+            # 12. Return to start joint configuration with the gripper open.
             # Closing it here can immediately clamp the released box again.
             self.moveit2.move_to_configuration(self.start_joints)
             self.wait_for_arm_motion("return to start")
