@@ -167,14 +167,17 @@ class ColorDetector(Node):
                 ])
                 point_base = transform @ point_camera
 
-                # Per-color image-to-table calibration. The red contour was
-                # reported at y=0.369 although its SDF center is y=0.350.
+                # Per-color image-to-table calibration against the box centers
+                # in pick_and_place_world.sdf. Green's raw projection is about
+                # y=0.053 m, so only a small correction is required to reach
+                # its y=0.050 m center.
                 if color_id == 'R':
                     point_base[1] -= 0.019
                 elif color_id == 'B':
-                    point_base[1] -= 0.0215
+                    # Raw blue y is about -0.269 m; its SDF center is -0.250 m.
+                    point_base[1] += 0.019
                 elif color_id == 'G':
-                    point_base[1] += 0.02
+                    point_base[1] -= 0.003
 
                 msg_str = (
                     f'{color_id},{point_base[0]:.3f},'

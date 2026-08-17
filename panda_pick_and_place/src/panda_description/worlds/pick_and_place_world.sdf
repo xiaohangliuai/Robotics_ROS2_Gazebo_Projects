@@ -51,7 +51,8 @@
   <!-- ================= GREEN BOX ================= -->
   <model name="green_box">
     <!-- Tabletop z=0.35 plus half the box height (0.03). -->
-    <pose>0.55 0.6 0.38 0 0 0</pose>
+    <!-- Rotate 90 degrees about Z so the 60 mm side faces the gripper jaws. -->
+    <pose>0.55 0.6 0.38 0 0 1.5708</pose>
     <static>false</static>
     <link name="green_link">
       <inertial>

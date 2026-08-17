@@ -31,6 +31,14 @@ CONTAINER_POSITIONS = {
     "B": [-0.56, -0.25],
 }
 
+# The boxes have different heights. Values are panda_hand Z positions in
+# panda_link0 and place the finger contact surfaces around each box's sides.
+DEFAULT_GRASP_HEIGHTS = {
+    "R": 0.140,
+    "G": 0.125,
+    "B": 0.150,
+}
+
 
 class PickAndPlace(Node):
     def __init__(self):
@@ -52,7 +60,10 @@ class PickAndPlace(Node):
         self.pick_hover_height = float(
             self.get_parameter("pick_hover_height").value
         )
-        self.declare_parameter("grasp_height", 0.14)
+        self.declare_parameter(
+            "grasp_height",
+            DEFAULT_GRASP_HEIGHTS[self.target_color],
+        )
         self.grasp_height = float(
             self.get_parameter("grasp_height").value
         )
@@ -137,8 +148,8 @@ class PickAndPlace(Node):
         try:
             # Only X/Y come from vision. The detector uses an assumed camera
             # depth, so deriving Z from it made the fingers stop at the top of
-            # the box. At grasp_height=0.14 m the fingers extend from about
-            # z=0.028 to z=0.082 and surround the 0.08 m-high box.
+            # the box. The color-specific grasp height places the fingers
+            # around the sides of boxes with different heights.
             pick_position = [
                 target_coords[0],
                 target_coords[1],
