@@ -1,5 +1,5 @@
 <sdf version='1.9'>
-  <world name='empty_world'>
+  <world name='pick_and_place_world'>
     <gravity>0 0 -9.8</gravity>
     <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
     <atmosphere type='adiabatic'/>
@@ -14,57 +14,10 @@
       <shadows>true</shadows>
     </scene>
 
-  <!-- ================= CONVEYOR ================= -->
-  <!--
-    TrackController applies contact-surface motion along the belt link's +x axis.
-    gazebo_launch.py / gazebo_launch.xml publish the initial speed command.
-  -->
-  <model name="conveyor">
-    <!-- Bottom of the belt rests on the z=0.35 tabletop. -->
-    <pose>0.6 0.6 0.39 0 0 0</pose>
-    <static>true</static>
-    <link name="belt_link">
-      <collision name="belt_collision">
-        <geometry>
-          <box>
-            <size>1.2 0.24 0.08</size>
-          </box>
-        </geometry>
-        <surface>
-          <friction>
-            <ode>
-              <mu>0.8</mu>
-              <mu2>100</mu2>
-              <fdir1>0 1 0</fdir1>
-            </ode>
-          </friction>
-        </surface>
-      </collision>
-      <visual name="belt_visual">
-        <geometry>
-          <box>
-            <size>1.2 0.24 0.08</size>
-          </box>
-        </geometry>
-        <material>
-          <ambient>0.08 0.08 0.08 1</ambient>
-          <diffuse>0.12 0.12 0.12 1</diffuse>
-          <specular>0.25 0.25 0.25 1</specular>
-        </material>
-      </visual>
-    </link>
-    <plugin filename="gz-sim-track-controller-system"
-            name="gz::sim::systems::TrackController">
-      <link>belt_link</link>
-      <min_velocity>-0.5</min_velocity>
-      <max_velocity>0.5</max_velocity>
-      <odometry_publish_frequency>10</odometry_publish_frequency>
-    </plugin>
-  </model>
-
   <!-- ================= RED BOX ================= -->
   <model name="red_box">
-    <pose>0.25 0.6 0.47 0 0 0</pose>
+    <!-- Tabletop z=0.35 plus half the box height (0.04). -->
+    <pose>0.25 0.6 0.39 0 0 0</pose>
     <static>false</static>
     <link name="red_link">
       <inertial>
@@ -96,7 +49,8 @@
 
   <!-- ================= GREEN BOX ================= -->
   <model name="green_box">
-    <pose>0.55 0.6 0.46 0 0 0</pose>
+    <!-- Tabletop z=0.35 plus half the box height (0.03). -->
+    <pose>0.55 0.6 0.38 0 0 0</pose>
     <static>false</static>
     <link name="green_link">
       <inertial>
@@ -128,7 +82,8 @@
 
   <!-- ================= BLUE BOX ================= -->
   <model name="blue_box">
-    <pose>0.85 0.6 0.48 0 0 0</pose>
+    <!-- Tabletop z=0.35 plus half the box height (0.05). -->
+    <pose>0.85 0.6 0.40 0 0 0</pose>
     <static>false</static>
     <link name="blue_link">
       <inertial>
@@ -158,6 +113,23 @@
     </link>
   </model>
 
+    <!-- Open-top destination containers on the rear table, aligned by box color. -->
+    <include>
+      <uri>model://sorting_container</uri>
+      <name>red_container</name>
+      <pose>0.25 -0.56 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://sorting_container_green</uri>
+      <name>green_container</name>
+      <pose>0.55 -0.56 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://sorting_container_blue</uri>
+      <name>blue_container</name>
+      <pose>0.85 -0.56 0 0 0 0</pose>
+    </include>
+
     <!-- Six gap-free designer tables in a 3-row x 2-column layout. -->
     <!-- Rear row (behind the Panda, replacing the trash can). -->
     <include>
@@ -183,7 +155,7 @@
       <pose>1.12 0 0 0 0 0</pose>
     </include>
 
-    <!-- Front row containing the conveyor. -->
+    <!-- Front row containing the colored boxes. -->
     <include>
       <uri>model://fancy_table</uri>
       <name>fancy_table_3</name>

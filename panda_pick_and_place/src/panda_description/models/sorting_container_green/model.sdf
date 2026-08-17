@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<sdf version="1.9">
+  <model name="sorting_container_green">
+    <static>true</static>
+    <link name="container">
+      <!--
+        Interior: 0.14 x 0.12 x 0.125 m.
+        Exterior: 0.16 x 0.14 x 0.135 m.
+        The bottom rests on the z=0.35 tabletop when the model pose is z=0.
+      -->
+      <collision name="bottom_collision">
+        <pose>0 0 0.355 0 0 0</pose>
+        <geometry><box><size>0.16 0.14 0.01</size></box></geometry>
+      </collision>
+      <collision name="left_wall_collision">
+        <pose>-0.075 0 0.42 0 0 0</pose>
+        <geometry><box><size>0.01 0.14 0.13</size></box></geometry>
+      </collision>
+      <collision name="right_wall_collision">
+        <pose>0.075 0 0.42 0 0 0</pose>
+        <geometry><box><size>0.01 0.14 0.13</size></box></geometry>
+      </collision>
+      <collision name="front_wall_collision">
+        <pose>0 -0.065 0.42 0 0 0</pose>
+        <geometry><box><size>0.14 0.01 0.13</size></box></geometry>
+      </collision>
+      <collision name="back_wall_collision">
+        <pose>0 0.065 0.42 0 0 0</pose>
+        <geometry><box><size>0.14 0.01 0.13</size></box></geometry>
+      </collision>
+
+      <!-- Green plastic with 30 percent visual transparency. -->
+      <visual name="bottom_visual">
+        <pose>0 0 0.355 0 0 0</pose>
+        <geometry><box><size>0.16 0.14 0.01</size></box></geometry>
+        <transparency>0.30</transparency>
+        <material>
+          <ambient>0.02 0.35 0.04 0.70</ambient>
+          <diffuse>0.05 0.90 0.10 0.70</diffuse>
+          <specular>0.18 0.45 0.20 0.70</specular>
+        </material>
+      </visual>
+      <visual name="left_wall_visual">
+        <pose>-0.075 0 0.42 0 0 0</pose>
+        <geometry><box><size>0.01 0.14 0.13</size></box></geometry>
+        <transparency>0.30</transparency>
+        <material>
+          <ambient>0.02 0.35 0.04 0.70</ambient>
+          <diffuse>0.05 0.90 0.10 0.70</diffuse>
+          <specular>0.18 0.45 0.20 0.70</specular>
+        </material>
+      </visual>
+      <visual name="right_wall_visual">
+        <pose>0.075 0 0.42 0 0 0</pose>
+        <geometry><box><size>0.01 0.14 0.13</size></box></geometry>
+        <transparency>0.30</transparency>
+        <material>
+          <ambient>0.02 0.35 0.04 0.70</ambient>
+          <diffuse>0.05 0.90 0.10 0.70</diffuse>
+          <specular>0.18 0.45 0.20 0.70</specular>
+        </material>
+      </visual>
+      <visual name="front_wall_visual">
+        <pose>0 -0.065 0.42 0 0 0</pose>
+        <geometry><box><size>0.14 0.01 0.13</size></box></geometry>
+        <transparency>0.30</transparency>
+        <material>
+          <ambient>0.02 0.35 0.04 0.70</ambient>
+          <diffuse>0.05 0.90 0.10 0.70</diffuse>
+          <specular>0.18 0.45 0.20 0.70</specular>
+        </material>
+      </visual>
+      <visual name="back_wall_visual">
+        <pose>0 0.065 0.42 0 0 0</pose>
+        <geometry><box><size>0.14 0.01 0.13</size></box></geometry>
+        <transparency>0.30</transparency>
+        <material>
+          <ambient>0.02 0.35 0.04 0.70</ambient>
+          <diffuse>0.05 0.90 0.10 0.70</diffuse>
+          <specular>0.18 0.45 0.20 0.70</specular>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>
