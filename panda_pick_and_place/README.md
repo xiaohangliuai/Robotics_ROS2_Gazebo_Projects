@@ -14,7 +14,7 @@ Python MoveIt interface in one workspace.
 
 ## Demo
 
-[▶ Watch the Panda color-detection pick-and-place demo (MP4)](./src/gif/panda_color_sorting_demo.mp4)
+![Panda color-detection pick-and-place demo](./src/gif/panda_color_sorting_demo-ezgif.com-video-to-gif-converter.gif)
 
 The demo shows the Panda robot detecting the colored cubes and sorting them
 into their matching red, green, and blue containers.
