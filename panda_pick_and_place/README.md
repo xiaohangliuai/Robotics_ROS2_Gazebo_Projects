@@ -14,7 +14,7 @@ Python MoveIt interface in one workspace.
 
 ## Demo
 
-![Panda color-detection pick-and-place demo](./src/gif/panda_color_detection_pickplace-ezgif.com-video-to-gif-converter.gif)
+![Panda color-detection pick-and-place demo]()
 
 ## Current simulation environment
 
